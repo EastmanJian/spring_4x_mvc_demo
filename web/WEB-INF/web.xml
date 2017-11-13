@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>Spring MVC Application</display-name>
+
+    <!--
+      By default, the spring config filename is [servlet-name]-servlet.xml and default location as WebContent/WEB-INF.
+      (According to tutorialspoint, you can customize this file name and location by adding the servlet listener
+      ContextLoaderListener and specify the contextConfigLocation param. However, in this example, though the
+      contextConfigLocation is configured as '/WEB-INF/applicationContext.xml', [servlet-name]-servlet.xml is still
+      required, and it takes effect instead of applicationContext.xml.)
+    -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>HelloWeb</servlet-name>
+        <!--
+          In a pure java web application, the servlet-class is javax.faces.webapp.FacesServlet.
+          Spring Web MVC framework uses DispatcherServlet.
+        -->
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--
+      <servlet-mapping> tag indicates what URLs will be handled by which DispatcherServlet, which is named HelloWeb.
+      Here all the HTTP requests ending with ".do" will be handled by the HelloWeb DispatcherServlet.
+      If you don't want a suffix, put "/" in the url-pattern.
+    -->
+    <servlet-mapping>
+        <servlet-name>HelloWeb</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+</web-app>

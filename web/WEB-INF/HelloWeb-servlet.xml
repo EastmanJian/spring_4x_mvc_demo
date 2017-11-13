@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+      This activate Spring MVC annotation scanning capability which allows to make use of annotations like
+      @Controller and @RequestMapping etc in the specified package.
+    -->
+    <context:component-scan base-package="mvc.basic"/>
+
+    <!--
+      Spring 4.x has 13 View Resolvers. InternalResourceViewResolver is one of them.
+      InternalResourceViewResolver adds prefix and suffix to the logical view name and then look for the view resource.
+      In the example below, if the controller returns 'hello' as the logical view name, InternalResourceViewResolver
+      maps it to '/jsp/hello.jsp'.
+    -->
+    <bean id="jspViews" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+        <!-- When you use multiple View Resolvers, use the order property to set the priority of the resolvers. Smaller number has higher priority. -->
+        <property name="order" value="2"/>
+    </bean>
+
+    <!--
+      BeanNameViewResolver is another View Resolver. It uses the bean id to map the logical view.
+      In the example below, logical view 'page3' maps to '/html/page3.html' defined in the bean InternalResourceView url property.
+    -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+        <property name="order" value="1"/>
+    </bean>
+    <bean id="page3" class="org.springframework.web.servlet.view.InternalResourceView">
+        <property name="url" value="/html/page3.html"/>
+    </bean>
+    <bean id="webXml" class="org.springframework.web.servlet.view.InternalResourceView">
+        <property name="url" value="WEB-INF/web.xml"/>
+    </bean>
+    <bean id="springConfig" class="org.springframework.web.servlet.view.InternalResourceView">
+        <property name="url" value="WEB-INF/HelloWeb-servlet.xml"/>
+    </bean>
+
+
+</beans>
