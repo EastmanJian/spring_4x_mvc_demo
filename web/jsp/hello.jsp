@@ -10,6 +10,8 @@
 <p>The url-pattern is <b>*.do</b></p>
 <p>Following links are configured in the Spring config file using with two View Resolvers -
     <b>InternalResourceViewResolver</b> and <b>BeanNameViewResolver</b>.</p>
+<p>Sub-page 1 and 2 are using the same view - page.jsp, but they are using different data model. Hence the page content
+will be different. Sub-page 3 maps to a static view page3.html by <b>BeanNameViewResolver</b>.</p>
 <a href="./pageOne.do"><h3>Sub Page 1</h3></a>
 <a href="./pageTwo.do"><h3>Sub Page 2</h3></a>
 <a href="./pageThree.do"><h3>Sub Page 3</h3></a>
